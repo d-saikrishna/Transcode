@@ -30,14 +30,14 @@ async def root(file: UploadFile = File(...)):
     num = 2
     print(file_path)
     print(audios_list)
-    print(file_path in audios_list)
     while file_path in videos_list + audios_list:
+        print(file_path in audios_list)
         if num == 2:
             file_name = file_name.split('.')[0]+'-' +str(num)+'.'+file_name.split('.')[1]
-            file_path = 'Uploads//' + file_name
+            file_path = 'Uploads/' + file_name
         else:
             file_name = file_name.split('-')[0]+'-' +str(num)+'.'+file_name.split('.')[1]
-            file_path = 'Uploads//' + file_name
+            file_path = 'Uploads/' + file_name
         num = num+1
     print(file_path)
 
