@@ -9,6 +9,7 @@ import ffmpeg
 import pandas as pd
 import random
 import string
+from decouple import config
 
 
 # Begin API
@@ -44,7 +45,8 @@ async def root(file: UploadFile = File(...)):
     except:
         error_msg = 'Timeout error: The uploaded file is too large.'
         crash_analytics_df.loc[len(crash_analytics_df)] = [408,
-                                                           error_msg]
+                                                           error_msg,
+                                                           0]
         crash_analytics_df.to_csv('crash_analytics.csv', index=False)
         raise HTTPException(status_code=408, detail=error_msg)
 
@@ -57,7 +59,9 @@ async def root(file: UploadFile = File(...)):
     except:
         os.remove(file_path) #Delete the unwanted file.
         error_msg = 'The uploaded file is neither a video nor an audio file.'
-        crash_analytics_df.loc[len(crash_analytics_df)] = [406, error_msg]
+        crash_analytics_df.loc[len(crash_analytics_df)] = [406,
+                                                           error_msg,
+                                                           file_path.split('.')[1]]
         crash_analytics_df.to_csv('crash_analytics.csv',index=False)
         raise HTTPException(status_code=406, detail=error_msg)
 
@@ -66,17 +70,18 @@ async def root(file: UploadFile = File(...)):
     if file_type == 'audio':
         download_file_name = file_name.split('.')[0] + '_transcoded.mp3'
         ffm.convert_py(file_path, 'Downloads//'+download_file_name)
-        download_url = 'ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/'+file_name.split('.')[0]+'_transcoded.mp3'+'?url_key='+str(url_key)
+        download_url = config('host')+'download/'+file_name.split('.')[0]+'_transcoded.mp3'+'?url_key='+str(url_key)
         duration = ffmpeg.probe('Downloads//'+file_name.split('.')[0]+'_transcoded.mp3')['format']['duration']
     elif file_type == 'video':
         download_file_name = file_name.split('.')[0] + '_transcoded.mp4'
         ffm.convert_py(file_path, 'Downloads//'+download_file_name)
-        download_url = 'ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/' + file_name.split('.')[0] + '_transcoded.mp4'+'?url_key='+str(url_key)
+        download_url =config('host')+'download/' + file_name.split('.')[0] + '_transcoded.mp4'+'?url_key='+str(url_key)
         duration = ffmpeg.probe('Downloads//'+file_name.split('.')[0]+'_transcoded.mp4')['format']['duration']
     else:
         error_msg = 'The uploaded file is neither a video nor an audio file.'
         crash_analytics_df.loc[len(crash_analytics_df)] = [406,
-                                                           error_msg]
+                                                           error_msg,
+                                                           file_path.split('.')[1]]
         crash_analytics_df.to_csv('crash_analytics.csv', index=False)
         raise HTTPException(status_code=406,
                             detail=error_msg)
@@ -114,7 +119,15 @@ async def download(file_name: str, url_key: str):
 @app.get("/analytics")
 def analytics():
     stream_info_df = pd.read_csv('stream_info.csv')
-    return stream_info_df.to_dict()
+    df = stream_info_df['file_name', 'file_type', 'size_kb', 'duration']
+    return df.to_dict()
+
+
+@app.get("/crashanalytics")
+def analytics():
+    crash_analytics_df = pd.read_csv('crash_analytics.csv')
+    print(crash_analytics_df)
+    return crash_analytics_df[['status_code','file_type']].to_dict()
 
 if __name__ == '__main__':
     uvicorn.run(app)

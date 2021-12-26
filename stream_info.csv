@@ -1,6 +1,5 @@
 file_name,file_type,size_kb,duration_s,download_file_name,download_url,url_key
 nasa.webm,video,880.0634766,30.544,nasa_transcoded.mp4,127.0.0.1:8000/download/nasa_transcoded.mp4?url_key=l3WKs6PuFh,l3WKs6PuFh
 nasa-2.webm,video,880.0634766,30.544,nasa-2_transcoded.mp4,127.0.0.1:8000/download/nasa-2_transcoded.mp4?url_key=1tN6Upilb4,1tN6Upilb4
-beach.mkv,video,17024.541015625,28.237,beach_transcoded.mp4,127.0.0.1:8000/download/beach_transcoded.mp4?url_key=p1hqfeFyTo,p1hqfeFyTo
+beach.mkv,video,17024.54102,28.237,beach_transcoded.mp4,127.0.0.1:8000/download/beach_transcoded.mp4?url_key=p1hqfeFyTo,p1hqfeFyTo
 guitar-2.mp3,audio,746.265625,27.252,guitar-2_transcoded.mp3,127.0.0.1:8000/download/guitar-2_transcoded.mp3?url_key=lUnp8x6dTt,lUnp8x6dTt
-Ritwika.jpg,video,149.3515625,0.040000,Ritwika_transcoded.mp4,127.0.0.1:8000/download/Ritwika_transcoded.mp4?url_key=bzi9M5wgKW,bzi9M5wgKW
