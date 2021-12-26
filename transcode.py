@@ -24,10 +24,13 @@ async def root(file: UploadFile = File(...)):
     file_name = file.filename
     file_path = 'Uploads/'+ file_name
     videos_list = list(glob.glob("Uploads//*.mp4"))+list(glob.glob("Uploads//*.webm"))+list(glob.glob("Uploads//*.mkv"))
-    audios_list = list(glob.glob(r"Uploads//*.mp3")) + list(glob.glob(r"Uploads//*.wav"))
+    audios_list = list(glob.glob(r"Uploads//*.mp3")) + list(glob.glob(r"Uploads//*.wav")) + list(glob.glob(r"Uploads//*.wma"))
     # If a file with same name is uploaded again, overwrite permission is being asked on the server.
     # To override that we'll create a duplicate filename.
     num = 2
+    print(file_path)
+    print(audios_list)
+    print(file_path in audios_list)
     while file_path in videos_list + audios_list:
         if num == 2:
             file_name = file_name.split('.')[0]+'-' +str(num)+'.'+file_name.split('.')[1]
@@ -36,6 +39,7 @@ async def root(file: UploadFile = File(...)):
             file_name = file_name.split('-')[0]+'-' +str(num)+'.'+file_name.split('.')[1]
             file_path = 'Uploads//' + file_name
         num = num+1
+    print(file_path)
 
     # Save the uploaded file on server
     try:
@@ -53,7 +57,6 @@ async def root(file: UploadFile = File(...)):
 
     # Transcode the uploaded file to mp3/mp4 - based on the format of the file.
     ffm = FFMConverter()
-    print(file_path)
     try:
         file_type = ffmpeg.probe(file_path)['streams'][0]['codec_type']
     except:
@@ -119,7 +122,7 @@ async def download(file_name: str, url_key: str):
 @app.get("/analytics")
 def analytics():
     stream_info_df = pd.read_csv('stream_info.csv')
-    df = stream_info_df['file_name', 'file_type', 'size_kb', 'duration']
+    df = stream_info_df[['file_name', 'file_type', 'size_kb', 'duration_s']]
     return df.to_dict()
 
 

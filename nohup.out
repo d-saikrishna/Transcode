@@ -1,0 +1,242 @@
+INFO:     Started server process [5789]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     183.83.209.75:20434 - "GET /docs HTTP/1.1" 200 OK
+INFO:     183.83.209.75:20434 - "GET /openapi.json HTTP/1.1" 200 OK
+   status_code                                      error_message file_type
+0          406  The uploaded file is neither a video nor an au...       pdf
+1          406  The uploaded file is neither a video nor an au...       pdf
+2          406  The uploaded file is neither a video nor an au...       pdf
+3          406  The uploaded file is neither a video nor an au...       pdf
+INFO:     183.83.209.75:20435 - "GET /crashanalytics HTTP/1.1" 200 OK
+INFO:     183.83.209.75:20439 - "GET /analytics HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: ('file_name', 'file_type', 'size_kb', 'duration')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/protocols/http/h11_impl.py", line 373, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/applications.py", line 208, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 181, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 82, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 61, in app
+    response = await func(request)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 227, in app
+    dependant=dependant, values=values, is_coroutine=is_coroutine
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 161, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/concurrency.py", line 39, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/anyio/to_thread.py", line 29, in run_sync
+    limiter=limiter)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/anyio/_backends/_asyncio.py", line 818, in run_sync_in_worker_thread
+    return await future
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/anyio/_backends/_asyncio.py", line 754, in run
+    result = context.run(func, *args)
+  File "./transcode.py", line 122, in analytics
+    df = stream_info_df['file_name', 'file_type', 'size_kb', 'duration']
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3458, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: ('file_name', 'file_type', 'size_kb', 'duration')
+INFO:     Started server process [6720]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     183.83.209.75:20698 - "GET /docs HTTP/1.1" 200 OK
+INFO:     183.83.209.75:20698 - "GET /openapi.json HTTP/1.1" 200 OK
+ffmpeg version 4.2.1-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2019 the FFmpeg developers
+  built with gcc 6.3.0 (Debian 6.3.0-18+deb9u1) 20170516
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-debug --disable-ffplay --disable-indev=sndio --disable-outdev=sndio --cc=gcc-6 --enable-fontconfig --enable-frei0r --enable-gnutls --enable-gmp --enable-libgme --enable-gray --enable-libaom --enable-libfribidi --enable-libass --enable-libvmaf --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librubberband --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libvorbis --enable-libopus --enable-libtheora --enable-libvidstab --enable-libvo-amrwbenc --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libdav1d --enable-libxvid --enable-libzvbi --enable-libzimg
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Guessed Channel Layout for Input Stream #0.0 : stereo
+Input #0, asf, from 'Uploads/electronic.wma':
+  Metadata:
+    encoder         : Lavf57.83.100
+  Duration: 00:01:45.79, start: 0.000000, bitrate: 137 kb/s
+    Stream #0:0: Audio: wmav2 (a[1][0][0] / 0x0161), 44100 Hz, stereo, fltp, 128 kb/s
+File 'Downloads//electronic_transcoded.mp3' already exists. Overwrite ? [y/N] Not overwriting - exiting
+Uploads/electronic.wma
+INFO:     183.83.209.75:20699 - "POST / HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/protocols/http/h11_impl.py", line 373, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/applications.py", line 208, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 181, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 82, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 61, in app
+    response = await func(request)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 227, in app
+    dependant=dependant, values=values, is_coroutine=is_coroutine
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 159, in run_endpoint_function
+    return await dependant.call(**values)
+  File "./transcode.py", line 72, in root
+    ffm.convert_py(file_path, 'Downloads//'+download_file_name)
+  File "./ffmpeg_convert.py", line 17, in convert_py
+    ffmpeg.run(stream)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/ffmpeg/_run.py", line 325, in run
+    raise Error('ffmpeg', out, err)
+ffmpeg._run.Error: ffmpeg error (see stderr output for detail)
+INFO:     Started server process [6798]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+ffmpeg version 4.2.1-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2019 the FFmpeg developers
+  built with gcc 6.3.0 (Debian 6.3.0-18+deb9u1) 20170516
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-debug --disable-ffplay --disable-indev=sndio --disable-outdev=sndio --cc=gcc-6 --enable-fontconfig --enable-frei0r --enable-gnutls --enable-gmp --enable-libgme --enable-gray --enable-libaom --enable-libfribidi --enable-libass --enable-libvmaf --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librubberband --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libvorbis --enable-libopus --enable-libtheora --enable-libvidstab --enable-libvo-amrwbenc --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libdav1d --enable-libxvid --enable-libzvbi --enable-libzimg
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Guessed Channel Layout for Input Stream #0.0 : stereo
+Input #0, asf, from 'Uploads/electronic.wma':
+  Metadata:
+    encoder         : Lavf57.83.100
+  Duration: 00:01:45.79, start: 0.000000, bitrate: 137 kb/s
+    Stream #0:0: Audio: wmav2 (a[1][0][0] / 0x0161), 44100 Hz, stereo, fltp, 128 kb/s
+File 'Downloads//electronic_transcoded.mp3' already exists. Overwrite ? [y/N] Not overwriting - exiting
+INFO:     183.83.209.75:20770 - "POST / HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/protocols/http/h11_impl.py", line 373, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/applications.py", line 208, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 181, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 82, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 61, in app
+    response = await func(request)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 227, in app
+    dependant=dependant, values=values, is_coroutine=is_coroutine
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 159, in run_endpoint_function
+    return await dependant.call(**values)
+  File "./transcode.py", line 71, in root
+    ffm.convert_py(file_path, 'Downloads//'+download_file_name)
+  File "./ffmpeg_convert.py", line 17, in convert_py
+    ffmpeg.run(stream)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/ffmpeg/_run.py", line 325, in run
+    raise Error('ffmpeg', out, err)
+ffmpeg._run.Error: ffmpeg error (see stderr output for detail)
+INFO:     183.83.209.75:20771 - "GET /docs HTTP/1.1" 200 OK
+INFO:     183.83.209.75:20771 - "GET /openapi.json HTTP/1.1" 200 OK
+ffmpeg version 4.2.1-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2019 the FFmpeg developers
+  built with gcc 6.3.0 (Debian 6.3.0-18+deb9u1) 20170516
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-debug --disable-ffplay --disable-indev=sndio --disable-outdev=sndio --cc=gcc-6 --enable-fontconfig --enable-frei0r --enable-gnutls --enable-gmp --enable-libgme --enable-gray --enable-libaom --enable-libfribidi --enable-libass --enable-libvmaf --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librubberband --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libvorbis --enable-libopus --enable-libtheora --enable-libvidstab --enable-libvo-amrwbenc --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libdav1d --enable-libxvid --enable-libzvbi --enable-libzimg
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Guessed Channel Layout for Input Stream #0.0 : stereo
+Input #0, asf, from 'Uploads/electronic.wma':
+  Metadata:
+    encoder         : Lavf57.83.100
+  Duration: 00:01:45.79, start: 0.000000, bitrate: 137 kb/s
+    Stream #0:0: Audio: wmav2 (a[1][0][0] / 0x0161), 44100 Hz, stereo, fltp, 128 kb/s
+File 'Downloads//electronic_transcoded.mp3' already exists. Overwrite ? [y/N] Not overwriting - exiting
+INFO:     183.83.209.75:20772 - "POST / HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/protocols/http/h11_impl.py", line 373, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/applications.py", line 208, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 181, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/middleware/errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 82, in __call__
+    raise exc
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/starlette/routing.py", line 61, in app
+    response = await func(request)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 227, in app
+    dependant=dependant, values=values, is_coroutine=is_coroutine
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/fastapi/routing.py", line 159, in run_endpoint_function
+    return await dependant.call(**values)
+  File "./transcode.py", line 71, in root
+    ffm.convert_py(file_path, 'Downloads//'+download_file_name)
+  File "./ffmpeg_convert.py", line 17, in convert_py
+    ffmpeg.run(stream)
+  File "/home/ec2-user/.local/lib/python3.7/site-packages/ffmpeg/_run.py", line 325, in run
+    raise Error('ffmpeg', out, err)
+ffmpeg._run.Error: ffmpeg error (see stderr output for detail)

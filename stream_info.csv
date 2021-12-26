@@ -3,3 +3,10 @@ nasa.webm,video,880.0634766,30.544,nasa_transcoded.mp4,127.0.0.1:8000/download/n
 nasa-2.webm,video,880.0634766,30.544,nasa-2_transcoded.mp4,127.0.0.1:8000/download/nasa-2_transcoded.mp4?url_key=1tN6Upilb4,1tN6Upilb4
 beach.mkv,video,17024.54102,28.237,beach_transcoded.mp4,127.0.0.1:8000/download/beach_transcoded.mp4?url_key=p1hqfeFyTo,p1hqfeFyTo
 guitar-2.mp3,audio,746.265625,27.252,guitar-2_transcoded.mp3,127.0.0.1:8000/download/guitar-2_transcoded.mp3?url_key=lUnp8x6dTt,lUnp8x6dTt
+drums.wav,audio,2095.865234375,33.624,drums_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/drums_transcoded.mp3?url_key=isZqCLKaGJ,isZqCLKaGJ
+electronic.wma,audio,1781.78125,105.822041,electronic_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/electronic_transcoded.mp3?url_key=rRWZ4Dn2Kp,rRWZ4Dn2Kp
+electronic.wma,audio,1781.78125,105.822041,electronic_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/electronic_transcoded.mp3?url_key=3TfgxiptwG,3TfgxiptwG
+electronic.wma,audio,1781.78125,105.822041,electronic_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/electronic_transcoded.mp3?url_key=4gV2pE8tYO,4gV2pE8tYO
+electronic.wma,audio,1781.78125,105.822041,electronic_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/electronic_transcoded.mp3?url_key=HsWzlDbuce,HsWzlDbuce
+drums-2.wav,audio,2095.865234375,33.624,drums-2_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/drums-2_transcoded.mp3?url_key=tHEBX4fMrw,tHEBX4fMrw
+electronic.wma,audio,1781.78125,105.822041,electronic_transcoded.mp3,ec2-65-0-169-39.ap-south-1.compute.amazonaws.com:8000/download/electronic_transcoded.mp3?url_key=6YdqDJ1zyC,6YdqDJ1zyC
