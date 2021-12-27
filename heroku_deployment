@@ -1,0 +1,9 @@
+heroku login
+heroku container:login
+heroku create fastapi-transcode
+
+heroku container:push web -a fastapi-transcode
+
+docker tag image_id registry.heroku.com/my-heroku-app/web
+docker push registry.heroku.com/my-heroku-app/web
+heroku container:release web --app=my-heroku-app

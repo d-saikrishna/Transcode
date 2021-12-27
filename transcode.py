@@ -16,30 +16,27 @@ from decouple import config
 app = FastAPI()
 
 @app.post("/")
-async def root(file: UploadFile = File(...)):
+async def upload(file: UploadFile = File(...)):
     # Stream Info
     stream_info_df = pd.read_csv('stream_info.csv')
     crash_analytics_df = pd.read_csv('crash_analytics.csv')
 
     file_name = file.filename
-    file_path = 'Uploads/'+ file_name
-    videos_list = list(glob.glob("Uploads//*.mp4"))+list(glob.glob("Uploads//*.webm"))+list(glob.glob("Uploads//*.mkv"))
-    audios_list = list(glob.glob(r"Uploads//*.mp3")) + list(glob.glob(r"Uploads//*.wav")) + list(glob.glob(r"Uploads//*.wma"))
+    file_path = r'Uploads/'+ file_name
+    files_list = list(glob.glob(r"Uploads/*"))
+    files_list = [file.replace('\\', '/') for file in files_list]
+
     # If a file with same name is uploaded again, overwrite permission is being asked on the server.
     # To override that we'll create a duplicate filename.
     num = 2
-    print(file_path)
-    print(audios_list)
-    while file_path in videos_list + audios_list:
-        print(file_path in audios_list)
+    while file_path in files_list:
         if num == 2:
             file_name = file_name.split('.')[0]+'-' +str(num)+'.'+file_name.split('.')[1]
-            file_path = 'Uploads/' + file_name
+            file_path = r'Uploads/' + file_name
         else:
             file_name = file_name.split('-')[0]+'-' +str(num)+'.'+file_name.split('.')[1]
-            file_path = 'Uploads/' + file_name
+            file_path = r'Uploads/' + file_name
         num = num+1
-    print(file_path)
 
     # Save the uploaded file on server
     try:
@@ -72,14 +69,14 @@ async def root(file: UploadFile = File(...)):
                                     , 10))
     if file_type == 'audio':
         download_file_name = file_name.split('.')[0] + '_transcoded.mp3'
-        ffm.convert_py(file_path, 'Downloads//'+download_file_name)
-        download_url = config('host')+'download/'+file_name.split('.')[0]+'_transcoded.mp3'+'?url_key='+str(url_key)
-        duration = ffmpeg.probe('Downloads//'+file_name.split('.')[0]+'_transcoded.mp3')['format']['duration']
+        ffm.convert_py(file_path, r'Downloads/'+download_file_name)
+        download_url = config('host')+r'download/'+file_name.split('.')[0]+'_transcoded.mp3'+'?url_key='+str(url_key)
+        duration = ffmpeg.probe(r'Downloads/'+file_name.split('.')[0]+'_transcoded.mp3')['format']['duration']
     elif file_type == 'video':
         download_file_name = file_name.split('.')[0] + '_transcoded.mp4'
-        ffm.convert_py(file_path, 'Downloads//'+download_file_name)
-        download_url =config('host')+'download/' + file_name.split('.')[0] + '_transcoded.mp4'+'?url_key='+str(url_key)
-        duration = ffmpeg.probe('Downloads//'+file_name.split('.')[0]+'_transcoded.mp4')['format']['duration']
+        ffm.convert_py(file_path, r'Downloads/'+download_file_name)
+        download_url =config('host')+r'download/' + file_name.split('.')[0] + '_transcoded.mp4'+'?url_key='+str(url_key)
+        duration = ffmpeg.probe(r'Downloads/'+file_name.split('.')[0]+'_transcoded.mp4')['format']['duration']
     else:
         error_msg = 'The uploaded file is neither a video nor an audio file.'
         crash_analytics_df.loc[len(crash_analytics_df)] = [406,
@@ -116,7 +113,7 @@ async def download(file_name: str, url_key: str):
     df = stream_info_df[stream_info_df['download_file_name'] == str(file_name)]
     print(str(df.url_key.to_list()[0]))
     if df.url_key.to_list()[0] == url_key:  #Remove this condition for publicly shareable URLS
-        return FileResponse('Downloads//'+file_name)
+        return FileResponse(r'Downloads/'+file_name)
 
 
 @app.get("/analytics")
@@ -134,4 +131,3 @@ def analytics():
 
 if __name__ == '__main__':
     uvicorn.run(app)
-

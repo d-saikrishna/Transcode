@@ -12,7 +12,7 @@ sudo yum install python3
 sudo yum install python-virtualenv -y
 python3 -m venv env
 source env/bin/activate
-cd Transcode
+cd Transcoded
 pip install -r requirements.txt
 
 #Installing ffmpeg and ffprobe
@@ -33,3 +33,7 @@ exit
 
 # Run the app
 nohup uvicorn transcode:app --host 0.0.0.0 &
+
+
+# For docker:
+sudo service docker start
